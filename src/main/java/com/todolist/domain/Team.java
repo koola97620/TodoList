@@ -18,10 +18,10 @@ import lombok.Setter;
  */
 
 @Entity
-@Table(name="GROUP")
+@Table(name="TEAM")
 @Getter
 @Setter
-public class Group {
+public class Team {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +29,9 @@ public class Group {
 
   private String name;
 
-  private String maker;
+  private String founder;
 
-  @OneToMany(mappedBy = "groupId")
-  private Set<Board> boardSet = new HashSet<Board>();
+  @OneToMany(mappedBy = "teamId")
+  private Set<Board> boardSet = new HashSet<>();
 
 }

@@ -34,8 +34,8 @@ public class Board {
   private User maker;
 
   @ManyToOne
-  @JoinColumn(name = "group_id")
-  private Group groupId;
+  @JoinColumn(name = "team_id")
+  private Team teamId;
 
   private LocalDateTime registerDate;
 

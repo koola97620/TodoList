@@ -44,6 +44,8 @@ public class Task {
 
   private Boolean completed;
 
+  private String title;
+
   @OneToOne
   @JoinColumn(name="task_content_id")
   private TaskContent taskContent;

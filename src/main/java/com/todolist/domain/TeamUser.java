@@ -16,18 +16,18 @@ import lombok.Setter;
  * @description
  */
 @Entity
-@Table(name="GROUP_USER")
+@Table(name="TEAM_USER")
 @Getter
 @Setter
-public class GroupUser {
+public class TeamUser {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name="group_id")
-  private Group groupId;
+  @JoinColumn(name="team_id")
+  private Team teamId;
 
   @ManyToOne
   @JoinColumn(name="user_email")
