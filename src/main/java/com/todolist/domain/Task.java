@@ -37,6 +37,10 @@ public class Task {
   @JoinColumn(name="board_id")
   private Board board;
 
+//  @ManyToOne(fetch = FetchType.LAZY)
+//  @JoinColumn(name="team_id")
+//  private Team team;
+
   private LocalDateTime registerDate;
 
   private LocalDateTime expireDate;

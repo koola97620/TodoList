@@ -39,10 +39,54 @@ public class TaskTest {
 
   @Test
   public void 개인모든Board에있는Task출력() {
-    Page<Task> tasks = taskRepository.findAllUserTasksFromAllBoard("todoadmin@gmail.com",pageable);
-    log.info("tasks.getTotalElements() : " + tasks.getTotalElements());
+    Page<Task> tasks = taskRepository.findUserTasksFromAllBoard("todoadmin@gmail.com",pageable);
+    for(Task task : tasks) {
+      log.info("id : " + task.getId() + "   title : " + task.getTitle() + "  content : " + task.getTaskContent().getContent());
+    }
+  }
+
+  @Test
+  public void 개인특정Board에있는모든Task출력() {
+    Page<Task> tasks = taskRepository.findUserTasksFromBoard("todoadmin@gmail.com",1l,pageable);
+    for(Task task : tasks) {
+      log.info("id : " + task.getId() + "   title : " + task.getTitle() + "  completed : " + task.getCompleted() +"  content : " + task.getTaskContent().getContent());
+    }
+  }
+
+  @Test
+  public void 개인특정Board에있는미완료Task출력() {
+    Page<Task> tasks = taskRepository.findUserTasksFromBoardNotCompleted("todoadmin@gmail.com",1l,pageable);
+    for(Task task : tasks) {
+      log.info("id : " + task.getId() + "   title : " + task.getTitle() + "  completed : " + task.getCompleted() +"  content : " + task.getTaskContent().getContent());
+    }
+  }
+
+  @Test
+  public void 팀의모든Task출력() {
+    Page<Task> tasks = taskRepository.findTeamAllTasks(1l,pageable);
+    for(Task task : tasks) {
+      log.info("id : " + task.getId() + "   title : " + task.getTitle());
+    }
+  }
+
+  @Test
+  public void 특정Board클릭시Task출력() {
+    Page<Task> tasks = taskRepository.findParticularBoardTasks(8l,pageable);
+    for(Task task : tasks) {
+      log.info("id : " + task.getId() + "   title : " + task.getTitle());
+    }
+
+    // 삭제 테스트 (성공)
+    taskRepository.deleteById(11l);
+
+    tasks = taskRepository.findParticularBoardTasks(8l,pageable);
+    for(Task task : tasks) {
+      log.info("id : " + task.getId() + "   title : " + task.getTitle());
+    }
+
 
   }
+
 
 
 
