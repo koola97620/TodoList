@@ -2,6 +2,7 @@ package com.todolist.domain;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,13 +29,13 @@ public class Task {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="user_email")
-  private User writerId;
+  private User user;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="board_id")
-  private Board boardId;
+  private Board board;
 
   private LocalDateTime registerDate;
 
@@ -46,7 +47,7 @@ public class Task {
 
   private String title;
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="task_content_id")
   private TaskContent taskContent;
 

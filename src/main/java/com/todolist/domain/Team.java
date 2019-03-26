@@ -31,7 +31,7 @@ public class Team {
 
   private String founder;
 
-  @OneToMany(mappedBy = "teamId")
+  @OneToMany(mappedBy = "team")
   private Set<Board> boardSet = new HashSet<>();
 
 }

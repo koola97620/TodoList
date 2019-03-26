@@ -2,6 +2,7 @@ package com.todolist.domain;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,13 +30,13 @@ public class Board {
 
   private String name;
 
-  @ManyToOne
-  @JoinColumn(name = "user_email")
-  private User maker;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user")
+  private User user;
 
-  @ManyToOne
-  @JoinColumn(name = "team_id")
-  private Team teamId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "team")
+  private Team team;
 
   private LocalDateTime registerDate;
 
