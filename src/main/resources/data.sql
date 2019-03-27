@@ -25,9 +25,9 @@ INSERT INTO team_user(id, team_id, user_email) VALUES (5, 2 , 'todoadmin4@gmail.
 INSERT INTO team_user(id, team_id, user_email) VALUES (6, 2 , 'todoadmin5@gmail.com');
 
 -- role
-INSERT INTO role(id, name) VALUES (1,'admin');
-INSERT INTO role(id, name) VALUES (2,'user');
-INSERT INTO role(id, name) VALUES (3,'teamMaker');
+INSERT INTO role(id, name) VALUES (1,'ADMIN');
+INSERT INTO role(id, name) VALUES (2,'USER');
+INSERT INTO role(id, name) VALUES (3,'TEAMFOUNDER');
 
 -- user_role
 INSERT INTO user_role(user_email, role_id) VALUES ('todoadmin@gmail.com' ,2);

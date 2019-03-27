@@ -1,5 +1,6 @@
 ### 인증정보 제외
 /src/main/resources/google.properties
+/src/main/resources/application.properties
 
 HELP.md
 /target/
