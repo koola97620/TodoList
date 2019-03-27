@@ -1,3 +1,6 @@
+### 인증정보 제외
+/src/main/resources/google.properties
+
 HELP.md
 /target/
 !.mvn/wrapper/maven-wrapper.jar

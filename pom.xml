@@ -28,9 +28,28 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-redis</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-oauth2-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-oauth2-jose</artifactId>
+    </dependency>
     <!--<dependency>-->
-      <!--<teamId>org.springframework.boot</teamId>-->
-      <!--<artifactId>spring-boot-starter-security</artifactId>-->
+      <!--<groupId>org.springframework.security.oauth.boot</groupId>-->
+      <!--<artifactId>spring-security-oauth2-autoconfigure</artifactId>-->
+      <!--<version>2.0.0.RELEASE</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework.security.oauth</groupId>-->
+      <!--<artifactId>spring-security-oauth2</artifactId>-->
+      <!--<version>2.3.5.RELEASE</version>-->
     <!--</dependency>-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -70,11 +89,18 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-    <!--<dependency>-->
-      <!--<teamId>org.springframework.security</teamId>-->
-      <!--<artifactId>spring-security-test</artifactId>-->
-      <!--<scope>test</scope>-->
-    <!--</dependency>-->
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>3.0.7</version>
+      <scope>test</scope>
+    </dependency>
 
     <!--<dependency>-->
       <!--<teamId>org.thymeleaf.extras</teamId>-->
