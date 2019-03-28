@@ -3,6 +3,7 @@ package com.todolist.controller;
 import com.todolist.annotation.SocialUser;
 import com.todolist.domain.Role;
 import com.todolist.domain.User;
+import com.todolist.oauth2.SecurityUser;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import lombok.extern.java.Log;
@@ -27,6 +28,10 @@ public class LoginController {
     return "login";
   }
 
+
+  /**
+    @SocialUser 가 붙은 메소드가 있어야 Argument에 있는 로직이 실행된다.
+   */
   @GetMapping("/loginSuccess")
   public String loginComplete(@SocialUser User user) {
     log.info("========== loginComplete ========");
@@ -46,14 +51,22 @@ public class LoginController {
 //        .getContext().getAuthentication();
 //    Map<String, Object> map = authentication.getPrincipal().getAttributes();
 
-    System.out.println("==============");
-
-    User user = (User)session.getAttribute("user");
-    System.out.println("====== session 에서 가져와지니? " + user.getName());
-    System.out.println("====== user.getRoleSet() : ");
-    for(Role role : user.getRoleSet()) {
-      System.out.print("--" + role.getName() + "  ");
+    SecurityUser authuser= null;
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if(authentication != null) {
+      log.info("authentication is not null");
+      //authuser = (SecurityUser)authentication.getPrincipal();
     }
+//    log.info("==== authuser  : " + authuser.getEmail());
+
+    log.info("==============");
+
+//    User user = (User)session.getAttribute("user");
+//    System.out.println("====== session 에서 가져와지니? " + user.getName());
+//    System.out.println("====== user.getRoleSet() : ");
+//    for(Role role : user.getRoleSet()) {
+//      System.out.print("--" + role.getName() + "  ");
+//    }
 
 
     return "afterLogin";

@@ -7,8 +7,11 @@ import com.todolist.annotation.SocialUser;
 import com.todolist.domain.Role;
 import com.todolist.domain.User;
 import com.todolist.domain.enums.SocialType;
+import com.todolist.redis.Point;
+import com.todolist.redis.PointRedisRepository;
 import com.todolist.repository.RoleRepository;
 import com.todolist.repository.UserRepository;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +39,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * @description
  *
  * 반환된 액세스 토큰값을 사용해서 User 정보를 가져오는 로직.
+ * 컨트롤러에서 파라미터를 바인딩 해주는 역할??
  */
 
 @Component
@@ -47,17 +51,28 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
   @Autowired
   private RoleRepository roleRepository;
 
+  @Autowired
+  private PointRedisRepository pointRedisRepository;
+
   public UserArgumentResolver(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
 
 
+  /**
+   * Resolver 가 적용 가능한지 검사하는 역할.
+   * 바인딩할 클래스를 지정해주면 된다.
+   */
   @Override
   public boolean supportsParameter(MethodParameter parameter) {
     return parameter.getParameterAnnotation(SocialUser.class) != null &&
           parameter.getParameterType().equals(User.class);
   }
 
+  /**
+   * 파라미터와 기타 정보를 받아서 실제 객체를 반환한다.
+   * 바인딩할 객체를 조작할 수 있는 메서드다.
+   */
   @Override
   public Object resolveArgument(MethodParameter methodParameter,
       ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest,
@@ -101,9 +116,20 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         }
 
         setRoleIfNotSame(user,authentication,map);
+        log.info("** 세션에 넣는다 **");
         session.setAttribute("user",user);
 
+
+        log.info("** redisRepository save!");
+        Point point = new Point("abc",123l,LocalDateTime.of(2019,03,19,0,0));
+        pointRedisRepository.save(point);
+
+        log.info("==== session.getClass().getName() : " + session.getClass().getName());
+
+
       } catch(ClassCastException e) {
+        log.info("======================ClassCastException");
+        e.printStackTrace();
         return user;
       }
     }
@@ -148,13 +174,15 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
   private void setRoleIfNotSame(User user, OAuth2AuthenticationToken authentication , Map<String,Object> map) {
     log.info("===== setRoleIfNotsame 안 ");
     log.info("===== 전 authentication.getAuthorities() : " + authentication.getAuthorities());
+    log.info("===== user.getSocialType().getRoleType().toString() : " + user.getSocialType().getRoleType().toString());
     if(!authentication.getAuthorities().contains(
         new SimpleGrantedAuthority(user.getSocialType().getRoleType()))) {
-
+      log.info("===== if 문 안에.");
       SecurityContextHolder.getContext().setAuthentication(new
           UsernamePasswordAuthenticationToken(map,"N/A",
           AuthorityUtils.createAuthorityList(user.getSocialType().getRoleType())));
     }
+
     log.info("===== 후 authentication.getAuthorities() : " + authentication.getAuthorities());
   }
 

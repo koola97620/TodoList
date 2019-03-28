@@ -77,4 +77,5 @@ public class User implements Serializable {
     this.createdDate = createdDate;
     this.updateDate = updateDate;
   }
+
 }
