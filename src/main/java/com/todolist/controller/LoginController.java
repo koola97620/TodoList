@@ -40,7 +40,8 @@ public class LoginController {
     log.info("user.getPrincipal(): " + user.getPrincipal());
 
 
-    return "redirect:/afterlogin";
+
+    return "redirect:/userMain";
   }
 
   @GetMapping("/afterlogin")
@@ -67,6 +68,12 @@ public class LoginController {
 //    for(Role role : user.getRoleSet()) {
 //      System.out.print("--" + role.getName() + "  ");
 //    }
+
+
+    User sessionUser = (User)session.getAttribute("user");
+    log.info("==== sessionUser.getName() : " + sessionUser.getName());
+
+
 
 
     return "afterLogin";

@@ -117,12 +117,13 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
         setRoleIfNotSame(user,authentication,map);
         log.info("** 세션에 넣는다 **");
+        log.info("==== session.getAttributeNames().toString() :  " + session.getAttributeNames().toString());
         session.setAttribute("user",user);
 
 
-        log.info("** redisRepository save!");
-        Point point = new Point("abc",123l,LocalDateTime.of(2019,03,19,0,0));
-        pointRedisRepository.save(point);
+//        log.info("** redisRepository save!");
+//        Point point = new Point("abc",123l,LocalDateTime.of(2019,03,19,0,0));
+//        pointRedisRepository.save(point);
 
         log.info("==== session.getClass().getName() : " + session.getClass().getName());
 
