@@ -2,21 +2,136 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="webjars/Semantic-UI/2.4.1/semantic.min.css">
   <script src="webjars/Semantic-UI/2.4.1/semantic.min.js"></script>
-  <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
+  <script th:src="@{/js/main.js}"></script>
   <title>User Main</title>
+
+  <style>
+    body {
+      background-color: black;
+    }
+    #container {
+      margin-left: 13%;
+
+    }
+    #userInfo {
+      margin-left: 10px;
+    }
+    #board button {
+      /*width: 100px;*/
+    }
+  </style>
 </head>
+
 <body>
 
-user main 화면
+<br/>
+<br/>
 
-<label th:text="${userName}"></label>
-<label th:text="${userEmail}"></label>
+<div id="container" class="ui equal width grid" style="width: 80%">
+  
+  <div id="userInfo" class="row" style="text-align: center;">
+    <div class="column">
+      <p style="float: left;" id="userName" class="ui grey inverted header" th:text="${user.name}">###</p>
+    </div>
+    <div class="column">
+      <p style="float: left;" id="userEmail" class="ui grey inverted header" th:text="${user.email}">###</p>
+    </div>
+    <div class="column">
+      <button style="float: left" class="ui inverted button" th:onclick="">Task등록</button>
+    </div>
+    <div class="column">
+      <button style="float: left;" class="ui inverted primary button" th:onclick="|window.location.href='/logout'|"
+              th:text="LOGOUT"></button>
+    </div>
+  </div>
+
+  <div class="two column row">
+
+
+    <div class="column" style="width: 100px;">
+      <div id="boardList"  class="row">
+        <div style="margin: 10px;" id="board" th:each="board : ${boardList}">
+          <button class="ui inverted grey button" th:text="${board.name}"
+                  th:attr="data-board=${board.id}" th:onclick=""></button>
+          <br/>
+        </div>
+        <br/>
+      </div>
+    </div>
+
+    <div class="column">
+
+      <div id="taskList">
+        <div id="task" th:each="task : ${tasks}">
+          <div class="ui raised card">
+            <div class="content">
+              <div class="header">
+                <h3 th:text="${task.title}">###</h3>
+              </div>
+              <div class="header" style="float: right;">
+                <button th:onclick="" class="ui green basic button" th:text="수정"></button>
+              </div>
+              <div class="meta">
+                <span class="category" th:text="${#temporals.format(task.registerDate , 'yyyy-MM-dd HH:mm:ss')}">###</span><br/>
+                <span class="category" th:text="'우선순위 : ' + ${task.priority}">###</span>
+              </div>
+              <div class="description">
+                <p th:text="${task.taskContent.content}"></p>
+              </div>
+            </div>
+            <div class="extra content">
+              <div class="right floated author">
+                <span th:text="${#temporals.format(task.expireDate , 'yyyy-MM-dd HH:mm:ss')}"></span>
+                <span>Completed : </span>
+                <input type="checkbox" th:checked="${task.completed}"/>
+              </div>
+            </div>
+          </div>
+
+          <br/>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+</div>
+
+
+
 
 <button class="ui primary button">
   Save
 </button>
+
+
+
+<div class="ui vertically divided grid">
+  <div class="three column row">
+    <div class="column" style="background-color: aliceblue"><p>a</p></div>
+    <div class="column" style="background-color: yellow"><p>a</p></div>
+    <div class="column" style="background-color: red"><p>a</p></div>
+  </div>
+
+  <div class="two column row">
+    <div class="column" style="background-color: green">
+      <p>a</p>
+    </div>
+
+    <div class="column" style="background-color: pink">
+      <p>a</p>
+    </div>
+  </div>
+
+
+</div>
 
 </body>
 </html>

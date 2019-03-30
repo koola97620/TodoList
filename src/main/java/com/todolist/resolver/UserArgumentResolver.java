@@ -7,15 +7,11 @@ import com.todolist.annotation.SocialUser;
 import com.todolist.domain.Role;
 import com.todolist.domain.User;
 import com.todolist.domain.enums.SocialType;
-import com.todolist.redis.Point;
-import com.todolist.redis.PointRedisRepository;
 import com.todolist.repository.RoleRepository;
 import com.todolist.repository.UserRepository;
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import javax.persistence.Lob;
 import javax.servlet.http.HttpSession;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +47,8 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
   @Autowired
   private RoleRepository roleRepository;
 
-  @Autowired
-  private PointRedisRepository pointRedisRepository;
+//  @Autowired
+//  private PointRedisRepository pointRedisRepository;
 
   public UserArgumentResolver(UserRepository userRepository) {
     this.userRepository = userRepository;

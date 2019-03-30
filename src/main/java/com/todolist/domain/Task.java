@@ -51,7 +51,7 @@ public class Task {
 
   private String title;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne
   @JoinColumn(name="task_content_id")
   private TaskContent taskContent;
 

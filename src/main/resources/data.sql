@@ -67,6 +67,7 @@ INSERT INTO task_content(id, content) VALUES (10,'점심 치킨');
 INSERT INTO task_content(id, content) VALUES (11,'점심 돼지고기');
 
 -- task
+-- todoadmin 유저가 1번,7번 게시판에 쓴글 (자기 개인 Board)
 INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
 (1,'스프링 책 읽기',1 , 'todoadmin@gmail.com' , 1 , '2019-03-07 00:00:01','2019-03-31 00:00:01',false,1);
 INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
@@ -77,6 +78,10 @@ INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date
 (4,'스터디 가기', 4 , 'todoadmin@gmail.com' , 1 , '2019-03-22 14:00:01', '2019-03-22 20:00:01' , false,4);
 INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
 (5,'영화 표 예매하기', 5 , 'todoadmin@gmail.com' , 1 , '2019-03-25 09:00:01', '2019-03-25 09:30:00' , false,5);
+INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+(12,'영화 표 예매하기2', 5 , 'todoadmin@gmail.com' , 7 , '2019-03-28 09:00:01', '2019-03-28 09:30:00' , false,5);
+INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+(13,'영화 표 예매하기3', 5 , 'todoadmin@gmail.com' , 7 , '2019-03-29 09:00:01', '2019-03-29 09:30:00' , false,5);
 
 -- board 2, 8 은 1번팀의 게시판들이다.
 

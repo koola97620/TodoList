@@ -38,12 +38,21 @@ public class TaskTest {
 
 
   @Test
-  public void 개인모든Board에있는Task출력() {
+  public void 개인Board팀Board에있는모든Task출력() {
     Page<Task> tasks = taskRepository.findUserTasksFromAllBoard("todoadmin@gmail.com",pageable);
     for(Task task : tasks) {
-      log.info("id : " + task.getId() + "   title : " + task.getTitle() + "  content : " + task.getTaskContent().getContent());
+      log.info("id : " + task.getId() + "  priority : " + task.getPriority() +"   title : " + task.getTitle() + "  content : " + task.getTaskContent().getContent());
     }
   }
+
+  @Test
+  public void 개인Boards에있는Task출력() {
+    Page<Task> tasks = taskRepository.findUserTasksFromPrivateBoard("todoadmin@gmail.com",pageable);
+    for(Task task : tasks) {
+      log.info("id : " + task.getId() + "  priority : " + task.getPriority() +"   title : " + task.getTitle() + "  content : " + task.getTaskContent().getContent());
+    }
+  }
+
 
   @Test
   public void 개인특정Board에있는모든Task출력() {

@@ -1,5 +1,6 @@
 package com.todolist.redis;
 
+import com.todolist.redis.Point;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
@@ -8,6 +9,6 @@ import org.springframework.data.repository.CrudRepository;
  * @project todolist
  * @description
  */
-public interface PointRedisRepository extends JpaRepository<Point,String> {
+public interface PointRedisRepository extends CrudRepository<Point,String> {
 
 }
