@@ -47,8 +47,8 @@ public class User implements Serializable {
 
   @ManyToMany
   @JoinTable(name = "user_role",
-    joinColumns = @JoinColumn(name="user_email", referencedColumnName = "email"),
-    inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName = "id"))
+    joinColumns = @JoinColumn(name="user", referencedColumnName = "email"),
+    inverseJoinColumns = @JoinColumn(name="role", referencedColumnName = "id"))
   private Set<Role> roleSet = new HashSet<>();
 
   @OneToMany(mappedBy = "user")

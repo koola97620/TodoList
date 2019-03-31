@@ -12,17 +12,22 @@ INSERT INTO user(email, name) VALUES ('todoadmin5@gmail.com','Admin5');
 
 
 -- team
-INSERT INTO team(id, name, founder) VALUES (1, 'GROUP1' , 'MAKER-Admin');
-INSERT INTO team(id, name, founder) VALUES (2, 'GROUP2' , 'MAKER-Admin2');
+INSERT INTO team(id, name, founder) VALUES (1, 'TEAM1' , 'MAKER-Admin');
+INSERT INTO team(id, name, founder) VALUES (2, 'TEAM2' , 'MAKER-Admin2');
+INSERT INTO team(id, name, founder) VALUES (3, 'TEAM3' , 'MAKER-Admin3');
+INSERT INTO team(id, name, founder) VALUES (4, 'TEAM4' , 'MAKER-Admin4');
 
 -- team_user
-INSERT INTO team_user(id, team_id, user_email) VALUES (1, 1 , 'todoadmin@gmail.com');
-INSERT INTO team_user(id, team_id, user_email) VALUES (2, 1 , 'todoadmin2@gmail.com');
-INSERT INTO team_user(id, team_id, user_email) VALUES (3, 1 , 'todoadmin3@gmail.com');
+INSERT INTO team_user(id, team, user) VALUES (1, 1 , 'todoadmin@gmail.com');
+INSERT INTO team_user(id, team, user) VALUES (2, 1 , 'todoadmin2@gmail.com');
+INSERT INTO team_user(id, team, user) VALUES (3, 1 , 'todoadmin3@gmail.com');
 
-INSERT INTO team_user(id, team_id, user_email) VALUES (4, 2 , 'todoadmin3@gmail.com');
-INSERT INTO team_user(id, team_id, user_email) VALUES (5, 2 , 'todoadmin4@gmail.com');
-INSERT INTO team_user(id, team_id, user_email) VALUES (6, 2 , 'todoadmin5@gmail.com');
+INSERT INTO team_user(id, team, user) VALUES (4, 2 , 'todoadmin3@gmail.com');
+INSERT INTO team_user(id, team, user) VALUES (5, 2 , 'todoadmin4@gmail.com');
+INSERT INTO team_user(id, team, user) VALUES (6, 2 , 'todoadmin5@gmail.com');
+
+INSERT INTO team_user(id, team, user) VALUES (7, 3 , 'todoadmin@gmail.com');
+INSERT INTO team_user(id, team, user) VALUES (8, 4 , 'todoadmin@gmail.com');
 
 -- role
 INSERT INTO role(id, name) VALUES (1,'ADMIN');
@@ -30,14 +35,14 @@ INSERT INTO role(id, name) VALUES (2,'USER');
 INSERT INTO role(id, name) VALUES (3,'TEAMFOUNDER');
 
 -- user_role
-INSERT INTO user_role(user_email, role_id) VALUES ('todoadmin@gmail.com' ,2);
-INSERT INTO user_role(user_email, role_id) VALUES ('todoadmin2@gmail.com' ,2);
-INSERT INTO user_role(user_email, role_id) VALUES ('todoadmin3@gmail.com' ,2);
-INSERT INTO user_role(user_email, role_id) VALUES ('todoadmin4@gmail.com' ,2);
-INSERT INTO user_role(user_email, role_id) VALUES ('todoadmin5@gmail.com' ,2);
+INSERT INTO user_role(user, role) VALUES ('todoadmin@gmail.com' ,2);
+INSERT INTO user_role(user, role) VALUES ('todoadmin2@gmail.com' ,2);
+INSERT INTO user_role(user, role) VALUES ('todoadmin3@gmail.com' ,2);
+INSERT INTO user_role(user, role) VALUES ('todoadmin4@gmail.com' ,2);
+INSERT INTO user_role(user, role) VALUES ('todoadmin5@gmail.com' ,2);
 
-INSERT INTO user_role(user_email, role_id) VALUES ('todoadmin@gmail.com' ,3);
-INSERT INTO user_role(user_email, role_id) VALUES ('todoadmin3@gmail.com' ,3);
+INSERT INTO user_role(user, role) VALUES ('todoadmin@gmail.com' ,3);
+INSERT INTO user_role(user, role) VALUES ('todoadmin3@gmail.com' ,3);
 
 
 -- board
@@ -68,35 +73,35 @@ INSERT INTO task_content(id, content) VALUES (11,'점심 돼지고기');
 
 -- task
 -- todoadmin 유저가 1번,7번 게시판에 쓴글 (자기 개인 Board)
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (1,'스프링 책 읽기',1 , 'todoadmin@gmail.com' , 1 , '2019-03-07 00:00:01','2019-03-31 00:00:01',false,1);
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (2,'산책하기', 2 , 'todoadmin@gmail.com' , 1 , '2019-03-08 00:00:01', null , true,2);
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (3,'운동하기', 3 , 'todoadmin@gmail.com' , 1 , '2019-03-21 00:00:01', null , false,3);
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (4,'스터디 가기', 4 , 'todoadmin@gmail.com' , 1 , '2019-03-22 14:00:01', '2019-03-22 20:00:01' , false,4);
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (5,'영화 표 예매하기', 5 , 'todoadmin@gmail.com' , 1 , '2019-03-25 09:00:01', '2019-03-25 09:30:00' , false,5);
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (12,'영화 표 예매하기2', 5 , 'todoadmin@gmail.com' , 7 , '2019-03-28 09:00:01', '2019-03-28 09:30:00' , false,5);
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (13,'영화 표 예매하기3', 5 , 'todoadmin@gmail.com' , 7 , '2019-03-29 09:00:01', '2019-03-29 09:30:00' , false,5);
 
 -- board 2, 8 은 1번팀의 게시판들이다.
 
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (6,'회식하기(소주)', 1 , 'todoadmin@gmail.com' , 2 , '2019-03-11 20:00:01', '2019-03-11 23:30:00' , false,6);
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (7,'회식하기(맥주)', 2 , 'todoadmin2@gmail.com' , 2 , '2019-03-12 20:00:01', '2019-03-11 23:30:00' , false,7);
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (8,'회식하기(양주)', 3 , 'todoadmin3@gmail.com' , 2 , '2019-03-13 20:00:01', '2019-03-11 23:30:00' , false,8);
 
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (9,'점심먹기(소고기)', 1 , 'todoadmin@gmail.com' , 8 , '2019-03-14 12:00:01', '2019-03-14 13:30:00' , false,9);
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (10,'점심먹기(치킨)', 2 , 'todoadmin2@gmail.com' , 8 , '2019-03-15 12:00:01', '2019-03-15 13:30:00' , false,10);
-INSERT INTO task(id,title,priority,user_email,board_id,register_date,expire_date,completed,task_content_id) VALUES
+INSERT INTO task(id,title,priority,user,board,start_date,expire_date,completed,task_content_id) VALUES
 (11,'점심먹기(돼지고기)', 3 , 'todoadmin3@gmail.com' , 8 , '2019-03-16 12:00:01', '2019-03-16 13:30:00' , false,11);
 
 

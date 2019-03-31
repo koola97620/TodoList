@@ -20,6 +20,7 @@ public class BoardServiceImpl implements BoardService{
   @Autowired
   BoardRepository boardRepository;
 
+
   @Override
   @Transactional
   public List<Board> findAllBoardsByUser(String email) {

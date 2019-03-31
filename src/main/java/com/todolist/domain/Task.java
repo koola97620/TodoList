@@ -30,11 +30,11 @@ public class Task {
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name="user_email")
+  @JoinColumn(name="user")
   private User user;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name="board_id")
+  @JoinColumn(name="board")
   private Board board;
 
 //  @ManyToOne(fetch = FetchType.LAZY)
@@ -43,6 +43,7 @@ public class Task {
 
   private LocalDateTime registerDate;
 
+  private LocalDateTime startDate;
   private LocalDateTime expireDate;
 
   private Integer priority;

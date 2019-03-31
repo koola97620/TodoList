@@ -26,12 +26,12 @@ public class TeamUser {
   private Long id;
 
   @ManyToOne
-  @JoinColumn(name="team_id")
-  private Team teamId;
+  @JoinColumn(name="team")
+  private Team team;
 
   @ManyToOne
-  @JoinColumn(name="user_email")
-  private User userEmail;
+  @JoinColumn(name="user")
+  private User user;
 
 
 }

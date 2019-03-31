@@ -2,11 +2,13 @@ package com.todolist.controller;
 
 import com.todolist.domain.Board;
 import com.todolist.domain.Task;
+import com.todolist.domain.Team;
 import com.todolist.domain.User;
 import com.todolist.repository.BoardRepository;
 import com.todolist.repository.TaskRepository;
 import com.todolist.service.BoardService;
 import com.todolist.service.TaskService;
+import com.todolist.service.TeamService;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +35,7 @@ public class MainController {
 
   private final BoardService boardService;
   private final TaskService taskService;
+  private final TeamService teamService;
 
 
   @GetMapping("/userMain")
@@ -46,6 +49,7 @@ public class MainController {
     // 테스트할땐 user.getEmail() 대신 "todoadmin@gmail.com"
     List<Board> boardList = boardService.findAllBoardsByUser("todoadmin@gmail.com");
     Page<Task> tasks = taskService.findUserTasksFromPrivateBoard("todoadmin@gmail.com",pageable);
+    List<Team> teams = teamService.findTeamsOfUser("todoadmin@gmail.com");
 
     log.info("==========  boardList.size() : " + boardList.size());
     log.info("==========  tasks.getTotalElements() : " + tasks.getTotalElements());
@@ -53,6 +57,7 @@ public class MainController {
     model.addAttribute("user",user);
     model.addAttribute("boardList", boardList);
     model.addAttribute("tasks",tasks);
+    model.addAttribute("teamList",teams);
 //    model.addAttribute("userName",user.getName());
 //    model.addAttribute("userEmail",user.getEmail());
     // 이 유저 정보를 가지고 Board, Task 목록 출력하기.
