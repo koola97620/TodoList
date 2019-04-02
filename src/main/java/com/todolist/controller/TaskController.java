@@ -53,12 +53,6 @@ public class TaskController {
     // @Valid, BindingResult 나중에.
     User user = (User)session.getAttribute("user");
 
-    log.info("==== " + taskDto.getBoardName());
-    log.info("==== " + taskDto.getTitle());
-    log.info("==== " + taskDto.getContent());
-    log.info("==== " + taskDto.getPriority());
-
-
     Task newTask = taskWriteService.saveTask(taskDto,user);
 
     return "redirect:/main";

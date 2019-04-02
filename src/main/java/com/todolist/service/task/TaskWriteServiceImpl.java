@@ -15,7 +15,9 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,28 +43,34 @@ public class TaskWriteServiceImpl implements TaskWriteService{
     // 원래는 Controller 에서 전달해주는 session 의 user 를 써야하는데
     // todoadmin@gmail.com 의 샘플데이터로 테스트할 것이기 때문에 일단은 todoadmin@gmail.com User를 불러온다.
     user = getUser();
-    log.info("===== user.getEmail() : " + user.getEmail());
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
     taskDto.setRegisterDate(LocalDateTime.now());
-    Task task = StringToLocalDateTime(taskDto);
+    String regDate = taskDto.getRegisterDate().format(formatter);
 
-    log.info("==== task.toString() : " + task.toString());
+    LocalDateTime registerDate = StringToLocalDateTime(regDate.substring(0,regDate.length()-3), formatter);
+    LocalDateTime startDate = StringToLocalDateTime(taskDto.getStartDate(),formatter);
+    LocalDateTime expireDate = StringToLocalDateTime(taskDto.getExpireDate(),formatter);
 
     String boardName = taskDto.getBoardName();
-    Integer priority = Integer.valueOf(taskDto.getPriority());
-
     Board board = getBoard(boardName, user.getEmail());
+
     TaskContent taskContent = setTaskContent(taskDto.getContent());
 
-    task = task.builder()
+    Integer priority = Integer.valueOf(taskDto.getPriority());
+
+    Task task = Task.builder()
         .board(board)
         .user(user)
         .taskContent(taskContent)
         .title(taskDto.getTitle())
         .priority(priority)
+        .completed(false)
+        .registerDate(registerDate)
+        .startDate(startDate)
+        .expireDate(expireDate)
         .build();
-
-    log.info("==== task.toString() : " + task.toString());
 
     return taskRepository.save(task);
   }
@@ -73,30 +81,12 @@ public class TaskWriteServiceImpl implements TaskWriteService{
   }
 
 
-  private Task StringToLocalDateTime(TaskDto taskDto) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-
-    String regDate = taskDto.getRegisterDate().format(formatter);
-
+  private LocalDateTime StringToLocalDateTime(String date, DateTimeFormatter formatter) {
     String add = ":00";
-    taskDto.setStartDate(taskDto.getStartDate()+add);
-    taskDto.setExpireDate(taskDto.getExpireDate()+add);
+    date = date + add;
+    LocalDateTime convertLocalDateTime = LocalDateTime.parse(date, formatter);
 
-    log.info("taskDto.getStartDate() : " + taskDto.getStartDate());
-    log.info("taskDto.getExpireDate() : " + taskDto.getExpireDate());
-    log.info("regDate : " + regDate);
-
-    LocalDateTime registerDateTime = LocalDateTime.parse(regDate,formatter);
-    LocalDateTime startDateTime = LocalDateTime.parse(taskDto.getStartDate(), formatter);
-    LocalDateTime expireDateTime = LocalDateTime.parse(taskDto.getExpireDate(), formatter);
-
-    Task task = Task.builder()
-        .startDate(startDateTime)
-        .expireDate(expireDateTime)
-        .registerDate(registerDateTime)
-        .build();
-
-    return task;
+    return convertLocalDateTime;
   }
 
 
