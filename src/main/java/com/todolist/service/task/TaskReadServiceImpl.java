@@ -1,6 +1,7 @@
-package com.todolist.service;
+package com.todolist.service.task;
 
 import com.todolist.domain.Task;
+import com.todolist.dto.TaskDto;
 import com.todolist.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -18,15 +19,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Log
 @RequiredArgsConstructor
-public class TaskServiceImpl implements TaskService{
+public class TaskReadServiceImpl implements TaskReadService {
 
   private final TaskRepository taskRepository;
 
   @Override
   @Transactional
-  public Page<Task> findUserTasksFromPrivateBoard(String userEmail , Pageable pageable) {
-    Page<Task> tasks = taskRepository.findUserTasksFromPrivateBoard(userEmail,pageable);
+  public Page<Task> findTasksFromPrivateBoard(String userEmail , Pageable pageable) {
+    Page<Task> tasks = taskRepository.findTasksFromPrivateBoard(userEmail,pageable);
     return tasks;
   }
+
 
 }

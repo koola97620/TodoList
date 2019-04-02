@@ -16,23 +16,23 @@ public interface TaskRepository extends JpaRepository<Task,Long> {
 
   // 특정 유저가 작성한 개인Board  모든 Task 리스트 출력 - 유저가 작성한 개인board,팀 board에 있는 모든task출력.
   @Query(value = "SELECT t FROM Task t WHERE t.user.email = (:email) ")
-  Page<Task> findUserTasksFromAllBoard(@Param("email") String userEmail , Pageable pageable);
+  Page<Task> findTasksFromAllBoard(@Param("email") String userEmail , Pageable pageable);
 
   // 개인board에 작성한 task만 출력. -- 로그인시 메인페이지에서 사용.
-  // todoadmin 이 개인 Board에 쓴 글을 읽어올때.1,7번 게시판에서 읽어와야함.
-  @Query(value = "SELECT t FROM Task t WHERE t.board.id IN (SELECT b.id FROM Board b WHERE b.user.email=(:email) AND b.team IS NULL) ORDER BY t.priority ASC")
-  Page<Task> findUserTasksFromPrivateBoard(@Param("email") String userEmail , Pageable pageable);
+  // todoadmin 이 개인 Board에 쓴 글을 읽어올때.1,7번 게시판에서 읽어와야함. ORDER BY t.priority ASC
+  @Query(value = "SELECT t FROM Task t WHERE t.board.id IN (SELECT b.id FROM Board b WHERE b.user.email=(:email) AND b.team IS NULL)")
+  Page<Task> findTasksFromPrivateBoard(@Param("email") String userEmail , Pageable pageable);
 
 
 
 
   // 특정 유저가 작성한 특정한 개인 Board의 모든 Task 리스트 출력 (팀x) - 특정 Board 클릭시 사용.
   @Query(value = "SELECT t FROM Task t where t.user.email = (:email) and t.board.id=(:boardId)")
-  Page<Task> findUserTasksFromBoard(@Param("email") String userEmail,@Param("boardId") Long boardId, Pageable pageable);
+  Page<Task> findTasksFromBoard(@Param("email") String userEmail,@Param("boardId") Long boardId, Pageable pageable);
 
   // 특정 유저가 작성한 특정한 개인 Board의 모든 Task 리스트 출력 (팀x) - 특정 Board 클릭시 완료 안된것만 출력.
   @Query(value = "SELECT t FROM Task t where t.user.email = (:email) and t.board.id=(:boardId) and t.completed=false")
-  Page<Task> findUserTasksFromBoardNotCompleted(@Param("email") String userEmail,@Param("boardId") Long boardId, Pageable pageable);
+  Page<Task> findTasksFromBoardNotCompleted(@Param("email") String userEmail,@Param("boardId") Long boardId, Pageable pageable);
 
 
   // 팀의 모든 Board에 있는 Task 리스트 전체 출력 - 팀 선택시 제일 먼저 출력될 내용.

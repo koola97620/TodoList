@@ -41,7 +41,7 @@ public class LoginController {
 
 
 
-    return "redirect:/userMain";
+    return "redirect:/main";
   }
 
   @GetMapping("/afterlogin")

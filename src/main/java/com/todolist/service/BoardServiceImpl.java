@@ -25,7 +25,6 @@ public class BoardServiceImpl implements BoardService{
   @Transactional
   public List<Board> findAllBoardsByUser(String email) {
     List<Board> boardList = boardRepository.findAllBoardsByUser(email);
-
     return boardList;
   }
 

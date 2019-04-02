@@ -39,7 +39,7 @@ public class TaskTest {
 
   @Test
   public void 개인Board팀Board에있는모든Task출력() {
-    Page<Task> tasks = taskRepository.findUserTasksFromAllBoard("todoadmin@gmail.com",pageable);
+    Page<Task> tasks = taskRepository.findTasksFromAllBoard("todoadmin@gmail.com",pageable);
     for(Task task : tasks) {
       log.info("id : " + task.getId() + "  priority : " + task.getPriority() +"   title : " + task.getTitle() + "  content : " + task.getTaskContent().getContent());
     }
@@ -47,7 +47,8 @@ public class TaskTest {
 
   @Test
   public void 개인Boards에있는Task출력() {
-    Page<Task> tasks = taskRepository.findUserTasksFromPrivateBoard("todoadmin@gmail.com",pageable);
+    Page<Task> tasks = taskRepository
+        .findTasksFromPrivateBoard("todoadmin@gmail.com",pageable);
     for(Task task : tasks) {
       log.info("id : " + task.getId() + "  priority : " + task.getPriority() +"   title : " + task.getTitle() + "  content : " + task.getTaskContent().getContent());
     }
@@ -56,7 +57,7 @@ public class TaskTest {
 
   @Test
   public void 개인특정Board에있는모든Task출력() {
-    Page<Task> tasks = taskRepository.findUserTasksFromBoard("todoadmin@gmail.com",1l,pageable);
+    Page<Task> tasks = taskRepository.findTasksFromBoard("todoadmin@gmail.com",1l,pageable);
     for(Task task : tasks) {
       log.info("id : " + task.getId() + "   title : " + task.getTitle() + "  completed : " + task.getCompleted() +"  content : " + task.getTaskContent().getContent());
     }
@@ -64,7 +65,8 @@ public class TaskTest {
 
   @Test
   public void 개인특정Board에있는미완료Task출력() {
-    Page<Task> tasks = taskRepository.findUserTasksFromBoardNotCompleted("todoadmin@gmail.com",1l,pageable);
+    Page<Task> tasks = taskRepository
+        .findTasksFromBoardNotCompleted("todoadmin@gmail.com",1l,pageable);
     for(Task task : tasks) {
       log.info("id : " + task.getId() + "   title : " + task.getTitle() + "  completed : " + task.getCompleted() +"  content : " + task.getTaskContent().getContent());
     }
@@ -95,6 +97,8 @@ public class TaskTest {
 
 
   }
+
+
 
 
 

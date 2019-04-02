@@ -1,6 +1,7 @@
-package com.todolist.service;
+package com.todolist.service.task;
 
 import com.todolist.domain.Task;
+import com.todolist.dto.TaskDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
@@ -10,9 +11,11 @@ import org.springframework.data.repository.query.Param;
  * @project todolist
  * @description
  */
-public interface TaskService {
+public interface TaskReadService {
 
-  Page<Task> findUserTasksFromPrivateBoard(String userEmail , Pageable pageable);
+  Page<Task> findTasksFromPrivateBoard(String userEmail , Pageable pageable);
+
+
 
 
 }

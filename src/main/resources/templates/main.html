@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
@@ -12,8 +12,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="webjars/Semantic-UI/2.4.1/semantic.min.css">
-  <script src="webjars/Semantic-UI/2.4.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/webjars/Semantic-UI/2.4.1/semantic.min.css">
+  <script src="/webjars/Semantic-UI/2.4.1/semantic.min.js"></script>
   <script th:src="@{/js/main.js}"></script>
   <title>User Main</title>
 
@@ -49,7 +49,7 @@
       <p  id="userEmail" class="ui grey inverted header" th:text="${user.email}">###</p>
     </div>
     <div class="column">
-      <button  class="ui inverted button" onclick="getModal()">Task등록</button>
+      <button  class="ui inverted button" th:onclick="|window.location.href='/task/writeForm'|" th:text="TaskWrite"></button>
     </div>
     <div class="column">
       <button class="ui inverted primary button" th:onclick="|window.location.href='/logout'|"
@@ -108,13 +108,13 @@
 
       <div id="taskList">
         <div id="task" th:each="task : ${tasks}">
-          <div class="ui raised card">
+          <div class="ui raised card" th:attr="data-task=${task.id}">
             <div class="content">
               <div class="header">
                 <h3 th:text="${task.title}">###</h3>
               </div>
               <div class="header" style="float: right;">
-                <button th:onclick="" class="ui green basic button" th:text="수정"></button>
+                <button id="modal_opener" th:onclick="" class="ui green basic button" th:text="수정"></button>
               </div>
               <div class="meta">
                 <span class="category" th:text="${#temporals.format(task.startDate , 'yyyy-MM-dd HH:mm:ss')}">###</span><br/>
@@ -148,7 +148,7 @@
 
 
 
-<div class="ui modal">
+<div class="ui modal" id="myModal">
 
   <div class="ui attached message">
     <div class="header">
@@ -157,75 +157,76 @@
   </div>
 
 
-  <form class="ui form attached fluid segment">
+  <form class="ui form attached fluid segment" method="post">
 
     <div class="two fields">
       <div class="field">
         <div class="ui header">Title</div>
-        <input name="title" placeholder="Title" type="text">
+        <input id="write_title" name="title" placeholder="Title" type="text">
       </div>
       <div class="field">
         <div class="ui header">Priority</div>
-        <input name="priority" placeholder="Priority" type="text">
+        <input id="write_priority" name="priority" placeholder="Priority" type="text">
       </div>
     </div>
 
     <div class="field">
       <div class="ui header">Task Description</div>
-      <input name="description" placeholder="Description" type="text">
+      <input id="write_description" name="description" placeholder="Description" type="text">
     </div>
 
-    <div class="three fields">
+    <div class="fields">
       <div class="field">
         <div class="ui header">Start Date</div>
 
-        <div class="container">
-          <div class="row">
-            <div class='col-sm-6'>
-              <div class="form-group">
-                <div class='input-group date' id='datetimepicker1'>
-                  <input type='text' class="form-control" />
-                  <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-              </div>
-            </div>
-            <script type="text/javascript">
-              $(function () {
-                $('#datetimepicker1').datetimepicker();
-              });
-            </script>
-          </div>
-        </div>
+        <!--<div class="container">-->
+          <!--<div class="row">-->
+            <!--<div class='col-sm-6'>-->
+              <!--<div class="form-group">-->
+                <!--<div class='input-group date' id='datetimepicker1'>-->
+                  <!--<input type='text' class="form-control" />-->
+                  <!--<span class="input-group-addon">-->
+                        <!--<span class="glyphicon glyphicon-calendar"></span>-->
+                    <!--</span>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<script type="text/javascript">-->
+              <!--$(function () {-->
+                <!--$('#datetimepicker1').datetimepicker();-->
+              <!--});-->
+            <!--</script>-->
+          <!--</div>-->
+        <!--</div>-->
 
-        <!--<input name="startDate" placeholder="StartDate" type="datetime-local">-->
+        <input id="write_startDate" name="startDate" placeholder="StartDate" type="datetime-local">
       </div>
+
       <div class="field">
         <div class="ui header">Expire Date</div>
 
-        <div class="container">
-          <div class="row">
-            <div class='col-sm-6'>
-              <div class="form-group">
-                <div class='input-group date' id='datetimepicker2'>
-                  <input type='text' class="form-control" />
-                  <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-              </div>
-            </div>
-            <script type="text/javascript">
-              $(function () {
-                $('#datetimepicker2').datetimepicker();
-              });
-            </script>
-          </div>
-        </div>
+        <!--<div class="container">-->
+          <!--<div class="row">-->
+            <!--<div class='col-sm-6'>-->
+              <!--<div class="form-group">-->
+                <!--<div class='input-group date' id='datetimepicker2'>-->
+                  <!--<input type='text' class="form-control" />-->
+                  <!--<span class="input-group-addon">-->
+                        <!--<span class="glyphicon glyphicon-calendar"></span>-->
+                    <!--</span>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<script type="text/javascript">-->
+              <!--$(function () {-->
+                <!--$('#datetimepicker2').datetimepicker();-->
+              <!--});-->
+            <!--</script>-->
+          <!--</div>-->
+        <!--</div>-->
 
 
-        <!--<input name="expireDate" placeholder="ExpireDate" type="datetime-local">-->
+        <input id="write_expireDate" name="expireDate" placeholder="ExpireDate" type="datetime-local">
       </div>
     </div>
 
@@ -235,25 +236,43 @@
       <div class="ui black deny button">
         Cancel
       </div>
-      <div class="ui positive right labeled icon button">
-        Register
-        <i class="checkmark icon"></i>
+      <div class="ui positive right labeled icon button" >
+         Write <i class="checkmark icon"></i>
       </div>
     </div>
-
 
   </form>
 
 
 </div>
 
-<!--<div class="image content">-->
-  <!--<div class="description">-->
-    <!--<div class="ui header">We've auto-chosen a profile image for you.</div>-->
-    <!--<p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>-->
-    <!--<p>Is it okay to use this photo?</p>-->
-  <!--</div>-->
-<!--</div>-->
+<script>
+  $('#modal_opener').click(function(){
+    console.log('open');
+    $('#myModal').data('accepted',0).modal('show');
+
+    // 수정시 필요한 기존 데이터를 가져오는 작업을 여기서 해줘야 한다.
+    // $('#register_title').val();
+
+  });
+
+  $('#myModal').modal({
+    onApprove: function(){
+      $('#myModal').data('accepted',1);
+      console.log('approve');
+      // add approved code here
+
+
+    },
+    onHide: function(){
+      if ($('#myModal').data('approved') != 1) {
+        console.log('hide');
+        $('.ui.modal').find('form')[0].reset();
+        // add not approved code here
+      }
+    }
+  });
+</script>
 
 
 </body>

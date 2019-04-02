@@ -10,7 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Builder.ObtainVia;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -23,6 +27,9 @@ import lombok.Setter;
 @Table(name="TASK")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Task {
 
   @Id
@@ -57,5 +64,16 @@ public class Task {
   private TaskContent taskContent;
 
 
-
+  @Override
+  public String toString() {
+    return "Task{" +
+        "id=" + id +
+        ", registerDate=" + registerDate +
+        ", startDate=" + startDate +
+        ", expireDate=" + expireDate +
+        ", priority=" + priority +
+        ", completed=" + completed +
+        ", title='" + title + '\'' +
+        '}';
+  }
 }

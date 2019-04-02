@@ -42,6 +42,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 @Log
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
+  @Autowired
   private UserRepository userRepository;
 
   @Autowired
@@ -50,9 +51,9 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 //  @Autowired
 //  private PointRedisRepository pointRedisRepository;
 
-  public UserArgumentResolver(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
+//  public UserArgumentResolver(UserRepository userRepository) {
+//    this.userRepository = userRepository;
+//  }
 
 
   /**

@@ -4,16 +4,13 @@ import com.todolist.domain.Board;
 import com.todolist.domain.Task;
 import com.todolist.domain.Team;
 import com.todolist.domain.User;
-import com.todolist.repository.BoardRepository;
-import com.todolist.repository.TaskRepository;
 import com.todolist.service.BoardService;
-import com.todolist.service.TaskService;
+import com.todolist.service.task.TaskReadService;
 import com.todolist.service.TeamService;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -34,11 +31,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
   private final BoardService boardService;
-  private final TaskService taskService;
+  private final TaskReadService taskReadService;
   private final TeamService teamService;
 
 
-  @GetMapping("/userMain")
+  @GetMapping("/main")
   public String userMain(HttpSession session, Model model,
       @PageableDefault(sort="priority",direction = Direction.ASC) Pageable pageable) {
 
@@ -48,8 +45,14 @@ public class MainController {
 
     // 테스트할땐 user.getEmail() 대신 "todoadmin@gmail.com"
     List<Board> boardList = boardService.findAllBoardsByUser("todoadmin@gmail.com");
-    Page<Task> tasks = taskService.findUserTasksFromPrivateBoard("todoadmin@gmail.com",pageable);
+    Page<Task> tasks = taskReadService.findTasksFromPrivateBoard("todoadmin@gmail.com",pageable);
     List<Team> teams = teamService.findTeamsOfUser("todoadmin@gmail.com");
+
+//    List<Board> boardList = boardService.findAllBoardsByUser(user.getEmail());
+//    Page<Task> tasks = taskReadService.findUserTasksFromPrivateBoard(user.getEmail(),pageable);
+//    List<Team> teams = teamService.findTeamsOfUser(user.getEmail());
+
+
 
     log.info("==========  boardList.size() : " + boardList.size());
     log.info("==========  tasks.getTotalElements() : " + tasks.getTotalElements());
@@ -62,7 +65,7 @@ public class MainController {
 //    model.addAttribute("userEmail",user.getEmail());
     // 이 유저 정보를 가지고 Board, Task 목록 출력하기.
 
-    return "user/main";
+    return "main";
   }
 
 }

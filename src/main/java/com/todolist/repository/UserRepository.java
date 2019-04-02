@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
  * @project todolist
  * @description
  */
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
 
   @Query(value = "SELECT u FROM User u where u.email = (:email)")
   User findByEmail(@Param("email") String email);

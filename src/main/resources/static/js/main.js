@@ -9,12 +9,6 @@ function getTaskList(boardId){
 }
 
 
-function getModal() {
-  $('.ui.modal')
-  .modal('show')
-  ;
-}
-
 
 // $(function () {
 //   $('#datetimepicker1').datetimepicker();
@@ -23,3 +17,5 @@ function getModal() {
 // $(function () {
 //   $('#datetimepicker2').datetimepicker();
 // });
+
+

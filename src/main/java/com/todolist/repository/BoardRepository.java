@@ -21,4 +21,8 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
   @Query(value = "SELECT b FROM Board b where b.team.id= (:teamId) ")
   List<Board> findAllBoardsByUserInTeam(@Param("teamId") Long teamId);
 
+
+  @Query(value = "SELECT b FROM Board b where b.name=(:boardName) and b.user.email = (:email) and b.team.id= null")
+  Board findBoardByNameAndUser(@Param("boardName") String boardName, @Param("email") String email);
+
 }
