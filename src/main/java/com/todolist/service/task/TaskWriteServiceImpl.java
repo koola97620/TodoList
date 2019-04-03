@@ -61,15 +61,16 @@ public class TaskWriteServiceImpl implements TaskWriteService{
     Integer priority = Integer.valueOf(taskDto.getPriority());
 
     Task task = Task.builder()
-        .board(board)
         .user(user)
-        .taskContent(taskContent)
-        .title(taskDto.getTitle())
-        .priority(priority)
-        .completed(false)
         .registerDate(registerDate)
         .startDate(startDate)
         .expireDate(expireDate)
+        .board(board)
+        .taskContent(taskContent)
+        .priority(priority)
+        .title(taskDto.getTitle())
+        .completed(false)
+
         .build();
 
     return taskRepository.save(task);

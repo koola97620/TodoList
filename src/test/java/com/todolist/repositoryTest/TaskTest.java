@@ -1,6 +1,7 @@
 package com.todolist.repositoryTest;
 
 import com.todolist.domain.Task;
+import com.todolist.dto.TestDto;
 import com.todolist.repository.TaskRepository;
 import lombok.extern.java.Log;
 import org.junit.Before;
@@ -51,6 +52,15 @@ public class TaskTest {
         .findTasksFromPrivateBoard("todoadmin@gmail.com",pageable);
     for(Task task : tasks) {
       log.info("id : " + task.getId() + "  priority : " + task.getPriority() +"   title : " + task.getTitle() + "  content : " + task.getTaskContent().getContent());
+    }
+  }
+
+  @Test
+  public void 개인Boards에있는Task출력테스트() {
+    Page<TestDto> tasks = taskRepository
+        .findTasksFromPrivateBoardTest("todoadmin@gmail.com",pageable);
+    for(TestDto task : tasks) {
+      log.info("id : " + task.getTaskId() + "  priority : " + task.getPriority() +"   title : " + task.getTitle() + "  content : " + task.getContent());
     }
   }
 

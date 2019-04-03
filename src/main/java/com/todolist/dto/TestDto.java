@@ -1,29 +1,29 @@
 package com.todolist.dto;
 
 import com.todolist.domain.Task;
-import com.todolist.domain.TaskContent;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * @author choijaeyong on 02/04/2019.
+ * @author choijaeyong on 03/04/2019.
  * @project todolist
  * @description
  */
+
 @Getter
 @Setter
-public class TaskDto {
-  private String boardName;
+@NoArgsConstructor
+@AllArgsConstructor
+public class TestDto {
+  private Long taskId;
   private String title;
   private String content;
+  private LocalDateTime startDate;
+  private LocalDateTime expireDate;
   private Integer priority;
+  private Boolean completed;
 
-  private String startDate;
-  private String expireDate;
-
-  private LocalDateTime registerDate;
 }
