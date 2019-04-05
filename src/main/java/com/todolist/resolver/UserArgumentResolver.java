@@ -91,7 +91,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
             .getContext().getAuthentication();
 
 
-        // 서버로부터 가져온 데이터
+        // 서버로부터 가져온 데이터??
         Map<String, Object> map = authentication.getPrincipal().getAttributes();
 
         // authentication.getAuthorizedClientRegistrationId() : google
@@ -111,6 +111,11 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
           user = userRepository.save(convertUser);
         }
+
+        // SecurityContextHolder 에 User 클래스를 상속받은 시큐리티 유저 객체를 넣어줘야한다.?
+        // 근데 HttpSession 으로도 유저 정보를 충분히 얻어올 수 있는데... 둘다 사용해야할까?
+        // SecurityConfig 에서 ROLE 관리를 하려면 필요하려나...
+
 
         setRoleIfNotSame(user,authentication,map);
         log.info("** 세션에 넣는다 **");

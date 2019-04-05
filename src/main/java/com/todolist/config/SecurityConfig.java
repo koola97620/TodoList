@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
@@ -33,6 +34,12 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+  /*
+  @Configuration 으로 등록되어 있는 클래스에서 @Bean으로 등록된 메서드의 파라미터로 지정된 객체들은
+  오토와이어링 할 수 있다. OAuth2ClientProperties에는 구글의 정보가 들어있고
+  카카오는 따로 등록했기 때문에 @Value 어노테이션을 사용하여 수동으로 불러온다.
+   */
   @Bean
   public ClientRegistrationRepository clientRegistrationRepository(
       OAuth2ClientProperties oAuth2ClientProperties, @Value("${custom.oauth2.kakao.client-id}")String kakaoClientId) {
@@ -66,14 +73,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
 
+
+
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     CharacterEncodingFilter filter = new CharacterEncodingFilter();
 
     http
+        // 인증 매커니즘을 요청한 HttpServletRequest 기반으로 설정한다.
         .authorizeRequests()
-          .antMatchers("/","/oauth2/**","/login/**","/css/**","/task/**",
-                "/images/**","/js/**","/console/**").permitAll()
+          //.antMatchers("/","/oauth2/**","/login/**","/css/**","/task/**","/images/**","/js/**","/console/**").permitAll()
+          .antMatchers("/","/oauth2/**","/login/**","/task/**").permitAll()
           .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
           .antMatchers("/kakao").hasAuthority(KAKAO.getRoleType())
 //          .antMatchers("/task/**").hasAuthority("ROLE_USER")
@@ -86,6 +97,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .headers().frameOptions().disable()
         .and()
           .exceptionHandling()
+          // 인증의 진입지점. 인증되지 않은 사용자가 허용되지 않은 경로로 요청할 경우 /login으로 이동된다.
           .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
 //        .and()
 //          .formLogin()
@@ -97,6 +109,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .deleteCookies("JSESSIONID")
           .invalidateHttpSession(true)
         .and()
+          // filter 보다 csrffilter 을 먼저 실행하게 설정.
           .addFilterBefore(filter, CsrfFilter.class)
           .csrf().disable();
 
