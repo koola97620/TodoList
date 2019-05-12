@@ -13,6 +13,26 @@
   <link rel="stylesheet" type="text/css" href="/webjars/Semantic-UI/2.4.1/semantic.min.css">
   <script src="/webjars/Semantic-UI/2.4.1/semantic.min.js"></script>
 
+  <script>
+    // function frmsubmit() {
+    //   var reInteger = /^[0-9]*$/ // 숫자를 검사할 정규식
+    //   var test = document.getElementById("write_description");
+    //   if (!checkInteger(reInteger, test, "숫자만 입력")) {
+    //     return false;
+    //   }
+    // }
+
+    // function checkInteger(reInteger, what, message) {
+    //   if (reInteger.test(what.value)) {
+    //     return true;
+    //   }
+    //   alert(message);
+    //   what.value = "";
+    //   what.focus();
+    //   //return false;
+    // }
+  </script>
+
   <title>User Main</title>
 
   <style>
@@ -76,7 +96,7 @@
           </div>
         </div>
 
-
+        <!-- onsubmit="return frmsubmit()" -->
         <form class="ui form attached fluid segment" method="post" th:action="@{/task/write}">
 
           <div class="three fields">
@@ -149,6 +169,8 @@
   ;
 
 </script>
+
+
 
 </body>
 </html>

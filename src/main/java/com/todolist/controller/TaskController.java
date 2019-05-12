@@ -11,6 +11,8 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -55,6 +57,21 @@ public class TaskController {
   @PostMapping("/task/write")
   public String taskWrite(@ModelAttribute(value = "taskDto") TaskDto taskDto, HttpSession session) {
     // @Valid, BindingResult 나중에.
+//    log.info("==============================================");
+//    log.info("taskDto.getContent() : " + taskDto.getContent());
+//    log.info("taskDto.getTitle() : "+ taskDto.getTitle());
+//
+//    Pattern p = Pattern.compile("(^[0-9]+$)");
+
+//    try {
+//      Integer number = Integer.parseInt(taskDto.getContent());
+//    } catch (NumberFormatException e) {
+//      throw new IllegalArgumentException("숫자만 써야 합니다.");
+//    }
+
+//    Matcher matcher = p.matcher(taskDto.getContent());
+//    log.info("matcher.find() : " + matcher.find());
+
     User user = (User)session.getAttribute("user");
 
     Task newTask = taskWriteService.saveTask(taskDto,user);
